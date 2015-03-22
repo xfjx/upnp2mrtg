@@ -182,16 +182,18 @@ if [ $? -eq 0 ]; then
 fi
 
 # get data in/out
-if ${PACKET_MODE:-false}; then
-  b1="`ws_operation GetTotalPacketsReceived NewTotalPacketsReceived`"
-  b2="`ws_operation GetTotalPacketsSent NewTotalPacketsSent`"
-else
-  b1="`ws_operation GetAddonInfos NewTotalBytesReceived`"
-  b2="`ws_operation GetAddonInfos NewTotalBytesSent`"
-fi
-
-# output for mrtg
-printf "%s\n%s\n%d days %.2d:%.2d:%.2d h (online)\nFritz!Box\n" \
-  "${b1:-UNKNOWN}" "${b2:-UNKNOWN}" "${h% *}" "${h#* }" "${m#* }" "${s#* }"
-  ;;
+let o1="`ws_operation GetAddonInfos NewTotalBytesReceived`"/1024/1024
+let o2="`ws_operation GetAddonInfos NewTotalBytesSent`"/1024/1024
+let o3="`ws_operation GetCommonLinkProperties NewLayer1DownstreamMaxBitRate`"/1000/1000
+let o4="`ws_operation GetCommonLinkProperties NewLayer1UpstreamMaxBitRate`"/1000/1000
+let o5="`ws_operation GetAddonInfos NewByteSendRate`"/1024
+let o6="`ws_operation GetAddonInfos NewByteReceiveRate`"/1024
 esac
+
+# Update OpenHAB
+curl --silent --header "Content-Type: text/plain" --request POST --data $o1 http://openhab-ip/rest/items/FritzBox_TotalBytesReceived
+curl --silent --header "Content-Type: text/plain" --request POST --data $o2 http://openhab-ip/rest/items/FritzBox_TotalBytesSent
+curl --silent --header "Content-Type: text/plain" --request POST --data $o3 http://openhab-ip/rest/items/FritzBox_DownstreamMaxBitRate
+curl --silent --header "Content-Type: text/plain" --request POST --data $o4 http://openhab-ip/rest/items/FritzBox_UpstreamMaxBitRate
+curl --silent --header "Content-Type: text/plain" --request POST --data $o5 http://openhab-ip/rest/items/FritzBox_ByteSendRate
+curl --silent --header "Content-Type: text/plain" --request POST --data $o6 http://openhab-ip/rest/items/FritzBox_ByteReceiveRate
