@@ -1,6 +1,6 @@
-# Monitoring Fritz!Box with MRTG
+# Monitoring Fritz!Box with openHAB
 
-http://www.anetzb.de/upnp2mrtg/
+From http://www.anetzb.de/upnp2mrtg/
 
 ## upnp2mrtg
 upnp2mrtg is a add-on for the
@@ -20,15 +20,8 @@ upnp enabled FritzBox DSL router.
 ## Fritz!Box Devices
 | Modell    | Status    | Remark |
 |-----------|-----------|--------|
-| 3030      | ok        |	 |
-| 3170      | ok        |	 |
-| 5050      | ok        |	 |
-| 5113      | ok        |	 |
-| 7050      | ok        |	 |
-| 7141      | ok        |	 |
+| 6490      | ok        |	 |
 | 7170      | ok        |	 |
-| 7270      | ok        |	 |
-| 7490      | ok        | needs fix |
 
 If you have a running upnp2mrtg installation not listed here, please drop me a
 note! Thanks!
