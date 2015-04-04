@@ -80,7 +80,7 @@ done
 
 # functions
 request_header () {
-echo "POST /upnp/control/$4 HTTP/1.0
+echo "POST /igdupnp/control/$4 HTTP/1.0
 HOST: $1:$2
 CONTENT-LENGTH: $3
 CONTENT-TYPE: text/xml; charset=\"utf-8\"
